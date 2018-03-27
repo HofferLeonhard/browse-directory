@@ -1,35 +1,13 @@
-<<<<<<< HEAD
-
-# browsing-directories
-Simple NodeJS app for browsing directories recursively
-
-## Installation
-```bash
-No installation necessary for use, just install nodejs an enjoy it !
-=======
 # browse-directory
 NodeJS Module for browsing directories recursively
 
 ## Installation
 ```bash
 npm install browse-directory
->>>>>>> Initial commit
 ```
 
 ## How to use
 
-<<<<<<< HEAD
-#### Run the server
-
-First define the root search directory, through the variable "init_browse_in"
-
-```js
-var fs = require('fs');
-var tree = {};
-var init_browse_in = "root-directory-name";
-```
-
-=======
 #### Run the app
 
 ```js
@@ -37,7 +15,6 @@ var browseDir = require("browse-directory");
 var tree = browseDir.browse("directory","root");
 ```
 Just require the module and call search function with the path name of the search root directory
->>>>>>> Initial commit
 
 Then, to run app, you just have to run command :
 
@@ -50,8 +27,6 @@ This will show you a browsing results
 
 #### How to exploit the results
 You have two part of results : "the Tree Result" and the "Tree detailed presentation"
-<<<<<<< HEAD
-=======
 To get the tree detailed presentation of result, do the following :
 
 ```js
@@ -61,7 +36,6 @@ browseDir.showTree(tree);
 By calling the showTree function of browseDir, which take a tree object, returned by the previously used browse function
 
 
->>>>>>> Initial commit
 
 ##### The Tree Result
 This is the first browsing result, which contain all the files and directories containing in the root directory.
@@ -73,8 +47,6 @@ So, to browse our collection, we must first browse the first root object and eac
 ##### Tree detailed presentation
 It is a simple browse of The tree result, presented previously !.
 
-<<<<<<< HEAD
-=======
 ## Complete example
 
 ```js
@@ -109,7 +81,6 @@ Will Show
 	  # Contains :
 ```
 
->>>>>>> Initial commit
 
 ## License
 
