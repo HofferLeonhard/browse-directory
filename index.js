@@ -1,4 +1,5 @@
 var fs = require('fs');
+<<<<<<< HEAD
 var tree = {};
 var init_browse_in = "directory";
 
@@ -31,6 +32,55 @@ function Browse(path, level){
 
 function showTree(){
 	for(var id in tree){
+=======
+
+module.exports = {
+ /**
+   * Browse directory
+   *
+   * @param  {String} path
+   * @param  {String} level
+  */
+  browse: function(path, level, tree) {
+  	if(path){
+	  	if(!tree)
+	  		var tree = {};
+	  	if(!level)
+	  		var level = "root";
+
+	  	var inputs = fs.readdirSync(path);
+		var dir = [];
+		tree[level] = [];
+
+		for(var i=0;i<inputs.length;i++){
+			var stats = fs.statSync(path+"/"+inputs[i]);
+			var element = {type: stats.isFile()?"file":"dir", src:inputs[i]};
+			tree[level].push(element);
+
+			if(!stats.isFile())
+				dir.push(inputs[i]);
+		}
+
+		for(var i=0;i<dir.length;i++){
+			return this.browse(path+"/"+dir[i], dir[i], tree);
+		}
+
+		if(dir.length == 0){
+			return tree;
+		}
+	}
+    
+  },
+
+  /**
+   * Show Tree
+   *
+   * @param  {Object} tree
+   * 
+   */
+  showTree: function(tree) {
+    for(var id in tree){
+>>>>>>> Initial commit
 		console.log("\n\n Level ==> "+id+"\n")
 		console.log("  # Contains : ");
 		for(var i in tree[id]){
@@ -42,4 +92,9 @@ function showTree(){
 		}
 
 	}
+<<<<<<< HEAD
 }
+=======
+  }
+};
+>>>>>>> Initial commit
