@@ -1,0 +1,26 @@
+{
+  "name": "browsing-directories",
+  "version": "0.0.1",
+  "description": "Browsing dir recursively",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HofferLeonhard/browsing-directories"
+  },
+  "keywords": [
+    "node",
+    "nodejs",
+    "browse",
+    "search",
+    "folder",
+    "directories"
+  ],
+  "author": "Ouandi Hoffer",
+  "license": "MIT-Clause",
+  "bugs": {
+    "url": "https://github.com/HofferLeonhard/browsing-directories/issues"
+  }
+}
