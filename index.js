@@ -1,38 +1,4 @@
 var fs = require('fs');
-<<<<<<< HEAD
-var tree = {};
-var init_browse_in = "directory";
-
-Browse(init_browse_in, "root");
-
-function Browse(path, level){
-	var inputs = fs.readdirSync(path);
-	var dir = [];
-	tree[level] = [];
-
-	for(var i=0;i<inputs.length;i++){
-		var stats = fs.statSync(path+"/"+inputs[i]);
-		var element = {type: stats.isFile()?"file":"dir", src:inputs[i]};
-		tree[level].push(element);
-
-		if(!stats.isFile())
-			dir.push(inputs[i]);
-	}
-
-	for(var i=0;i<dir.length;i++){
-		Browse(path+"/"+dir[i], dir[i]);
-	}
-
-	if(dir.length == 0){
-		console.log("\n Tree Result : \n\n "+JSON.stringify(tree)); 
-		console.log("\n Tree detailed presentation : "); 
-		showTree();
-	}
-}
-
-function showTree(){
-	for(var id in tree){
-=======
 
 module.exports = {
  /**
@@ -41,32 +7,125 @@ module.exports = {
    * @param  {String} path
    * @param  {String} level
   */
-  browse: function(path, level, tree) {
+  browse: function(path, level, tree, dirs) {
   	if(path){
 	  	if(!tree)
 	  		var tree = {};
 	  	if(!level)
-	  		var level = "root";
+	  		var level = path;
+	  	if(!dirs){
+	  		var dirs = [];
+	  		dirs.push(path);
+	  	}
+
 
 	  	var inputs = fs.readdirSync(path);
-		var dir = [];
-		tree[level] = [];
+		var dir = dirs;
+		var key = level.name?level.name:level;
+		tree[key] = [];
 
 		for(var i=0;i<inputs.length;i++){
 			var stats = fs.statSync(path+"/"+inputs[i]);
-			var element = {type: stats.isFile()?"file":"dir", src:inputs[i]};
-			tree[level].push(element);
+			var element = {type: stats.isFile()?"file":"dir", name:inputs[i], src:path+"/"+inputs[i]};
+			tree[key].push(element);
 
-			if(!stats.isFile())
-				dir.push(inputs[i]);
+			if(!stats.isFile()){
+				dir.push(element);
+			}
 		}
 
-		for(var i=0;i<dir.length;i++){
-			return this.browse(path+"/"+dir[i], dir[i], tree);
-		}
 
-		if(dir.length == 0){
+		if(dirs.length == dir.length && dirs.indexOf(level) == dirs.length-1){
 			return tree;
+		}
+		else{
+			dirs = dir;
+
+			return this.browse(dirs[dirs.indexOf(level)+1].src, dirs[dirs.indexOf(level)+1], tree, dirs);
+		}
+	}
+    
+  },
+
+  // Get All files into a directory
+  browseFiles: function(path, level, tree, dirs) {
+  	if(path){
+	  	if(!tree)
+	  		var tree = [];
+	  	if(!level)
+	  		var level = path;
+	  	if(!dirs){
+	  		var dirs = [];
+	  		dirs.push(path);
+	  	}
+
+
+	  	var inputs = fs.readdirSync(path);
+		var dir = dirs;
+		var key = level.name?level.name:level;
+
+		for(var i=0;i<inputs.length;i++){
+			var stats = fs.statSync(path+"/"+inputs[i]);
+			var element = {type: stats.isFile()?"file":"dir", name:inputs[i], src:path+"/"+inputs[i]};
+
+			if(element.type == "file")
+				tree.push(element);
+
+			if(!stats.isFile()){
+				dir.push(element);
+			}
+		}
+
+
+		if(dirs.length == dir.length && dirs.indexOf(level) == dirs.length-1){
+			return tree;
+		}
+		else{
+			dirs = dir;
+
+			return this.browseFiles(dirs[dirs.indexOf(level)+1].src, dirs[dirs.indexOf(level)+1], tree, dirs);
+		}
+	}
+    
+  },
+
+   // Get All directories into a directory
+  browseDirs: function(path, level, tree, dirs) {
+  	if(path){
+	  	if(!tree)
+	  		var tree = [];
+	  	if(!level)
+	  		var level = path;
+	  	if(!dirs){
+	  		var dirs = [];
+	  		dirs.push(path);
+	  	}
+
+
+	  	var inputs = fs.readdirSync(path);
+		var dir = dirs;
+		var key = level.name?level.name:level;
+
+		for(var i=0;i<inputs.length;i++){
+			var stats = fs.statSync(path+"/"+inputs[i]);
+			var element = {type: stats.isFile()?"file":"dir", name:inputs[i], src:path+"/"+inputs[i]};
+
+			if(element.type == "dir")
+				tree.push(element);
+
+			if(!stats.isFile()){
+				dir.push(element);
+			}
+		}
+
+
+		if(dirs.length == dir.length && dirs.indexOf(level) == dirs.length-1){
+			return tree;
+		}
+		else{
+			dirs = dir;
+
+			return this.browseDirs(dirs[dirs.indexOf(level)+1].src, dirs[dirs.indexOf(level)+1], tree, dirs);
 		}
 	}
     
@@ -80,7 +139,6 @@ module.exports = {
    */
   showTree: function(tree) {
     for(var id in tree){
->>>>>>> Initial commit
 		console.log("\n\n Level ==> "+id+"\n")
 		console.log("  # Contains : ");
 		for(var i in tree[id]){
@@ -92,9 +150,5 @@ module.exports = {
 		}
 
 	}
-<<<<<<< HEAD
-}
-=======
   }
 };
->>>>>>> Initial commit

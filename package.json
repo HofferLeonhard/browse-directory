@@ -1,10 +1,10 @@
 {
   "name": "browse-directory",
-  "version": "0.0.1",
-  "description": "Browsing directory recursively",
+  "version": "0.0.3",
+  "description": "For Browsing directory recursively",
   "main": "index.js",
   "scripts": {
-    "test": "node index.js"
+    "test": "node test.js"
   },
   "repository": {
     "type": "git",
@@ -16,9 +16,9 @@
     "browse",
     "search",
     "folder",
-    "directories"
+    "directory"
   ],
-  "author": "Ouandi Hoffer",
+  "author": "Ouandi Mbiandja Hoffer Fleury",
   "license": "MIT-Clause",
   "bugs": {
     "url": "https://github.com/HofferLeonhard/browse-directory/issues"
